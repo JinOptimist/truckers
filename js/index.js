@@ -53,7 +53,7 @@ $(document).ready(function(){
 		var cityFrom = spanAndClass('(' + line.CityFrom + ')');
 		var countryTo = spanAndClass(line.CountryTo);
 		var cityTo = spanAndClass('(' + line.CityTo + ')');
-		var dateFrom = spanAndClass(' ' + line.DateFrom);
+		var dateFrom = spanAndClass(line.DateFrom);
 		var dateToDay = spanAndClass(line.DateToDay);
 		var dateToMonth = spanAndClass(line.DateToMonth);
 		
@@ -62,6 +62,7 @@ $(document).ready(function(){
 		li.append($("<span> => </span>"));
 		li.append(countryTo);
 		li.append(cityTo);
+		li.append($("<span> </span>"));
 		li.append(dateFrom);
 		li.append($("<span> => </span>"));
 		li.append(dateToDay);
@@ -112,7 +113,11 @@ $(document).ready(function(){
 	function spanAndClass(spanText, spanClass){
 		var span = $('<span>');
 		span.addClass(spanClass);
+		if (Number.isInteger(spanText - 0) && spanText - 0 < 10){
+			spanText = '0' + spanText;
+		}
 		span.text(spanText);
+		
 		return span;
 	}
 	
