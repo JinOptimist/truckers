@@ -1,12 +1,12 @@
 body{
-	font-size: 16px;
+	font-size: 20px;
 }
 .box{
 	display: flex;
 }
 .connectedSortable {
 	border: 1px solid #eee;
-	width: 450px;
+	width: 445px;
 	min-height: 20px;
 	list-style-type: none;
 	margin: 0;
@@ -14,14 +14,13 @@ body{
 	margin-right: 10px;
 }
 .connectedSortable li {
-	padding: 5px;
-	width: 435px;
+	width: 100%;
 	cursor: grab;
 }
 
 
 select{
-	border: 1;
+	/* border: 0; */
     font-size: 16px;
     background: #f6f6f6;
 }

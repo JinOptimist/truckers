@@ -1,38 +1,77 @@
 $(document).ready(function(){
+	var lines = [];
 	var cityArray = ['Pinsk', 'Minsk', 'Moskwa', 'Kutno', 'Baza'];
 	var countryArray = ['RUS', 'PL', 'BY', 'CZ'];
 	
 	var lineCount = 30;
 	var lineInBox = 5;
 	
+	var editable = false;
+	
 	init();
+	
+	$('.toggleEditMode').click(function(){
+		editable = !editable;
+		drawLines();
+	});
 		
 	function init(){
 		initDrag();
-		var lines = generateLines();
-		drawLines(lines);
+		generateLines();
+		drawLines();
 	}
 	
 	function generateLines(){
-		var lines = [];
 		for(var i = 0; i < lineCount; i++){
 			var line = generateLineObj();
 			lines.push(line);
 		}
-		return lines;
 	}
 	
-	function drawLines(lines){
+	function drawLines(){
+		
+		for(var i = 0; i < lineCount / lineInBox; i++){
+			$('#sortable' + (1 + i)).empty();
+		}
+		
 		for(var i = 0; i < lines.length; i++){
 			var line = lines[i];
 			
-			var li = drawLine(line);
+			var li = editable 
+				? drawEditableLine(line)
+				: drawLine(line);
+			
 			
 			$('#sortable' + (1 + Math.floor(i / lineInBox))).append(li);
 		}
 	}
 	
 	function drawLine(line){
+		var li = $('<li class="ui-state-default"></li>');
+		
+		var countryFrom = spanAndClass(line.CountryFrom);
+		var cityFrom = spanAndClass('(' + line.CityFrom + ')');
+		var countryTo = spanAndClass(line.CountryTo);
+		var cityTo = spanAndClass('(' + line.CityTo + ')');
+		var dateFrom = spanAndClass(' ' + line.DateFrom);
+		var dateToDay = spanAndClass(line.DateToDay);
+		var dateToMonth = spanAndClass(line.DateToMonth);
+		
+		li.append(countryFrom);
+		li.append(cityFrom);
+		li.append($("<span> => </span>"));
+		li.append(countryTo);
+		li.append(cityTo);
+		li.append(dateFrom);
+		li.append($("<span> => </span>"));
+		li.append(dateToDay);
+		li.append($("<span>.</span>"));
+		li.append(dateToMonth);
+		
+		return li;
+	}
+	
+	function drawEditableLine(line){
 		var li = $('<li class="ui-state-default"></li>');
 		
 		var countryFrom = selectAndOption(countryArray, line.CountryFrom);
