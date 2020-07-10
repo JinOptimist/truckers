@@ -1,3 +1,9 @@
+body{
+	font-size: 16px;
+}
+.box{
+	display: flex;
+}
 .connectedSortable {
 	border: 1px solid #eee;
 	width: 450px;
@@ -8,18 +14,30 @@
 	margin-right: 10px;
 }
 .connectedSortable li {
-	margin: 0 5px 5px 5px;
 	padding: 5px;
-	font-size: 1.2em;
-	width: 420px;
+	width: 435px;
 	cursor: grab;
 }
-.box{
-	display: flex;
-}
+
 
 select{
 	border: 1;
     font-size: 16px;
     background: #f6f6f6;
+}
+input[type=number]{
+	width: 33px;
+	background: #f6f6f6;
+	font-size: 16px;
+	padding: 0;
+    margin: 0;
+	border: 1px #ccc solid;
+}
+
+
+
+.repair{
+	text-align: center;
+    font-size: 40px;
+    font-weight: bold;
 }

@@ -39,17 +39,21 @@ $(document).ready(function(){
 		var cityFrom = selectAndOption(cityArray, line.CityFrom);
 		var countryTo = selectAndOption(countryArray, line.CountryTo);
 		var cityTo = selectAndOption(cityArray, line.CityTo);
-		var dateFrom = spanAndClass(' ' + line.DateFrom);
-		var dateTo = spanAndClass(line.DateTo);
+		var dateFrom = inputNumberMinMax(line.DateFrom);
+		var dateToDay = inputNumberMinMax(line.DateToDay);
+		var dateToMonth = inputNumberMinMax(line.DateToMonth, 1, 12);
 		
 		li.append(countryFrom);
 		li.append(cityFrom);
-		li.append($("<span> => </span>"));
+		li.append($("<span>=></span>"));
 		li.append(countryTo);
 		li.append(cityTo);
+		li.append($("<span> </span>"));
 		li.append(dateFrom);
-		li.append($("<span> => </span>"));
-		li.append(dateTo);
+		li.append($("<span>=></span>"));
+		li.append(dateToDay);
+		li.append($("<span>.</span>"));
+		li.append(dateToMonth);
 		
 		return li;
 	}
@@ -61,7 +65,8 @@ $(document).ready(function(){
 			CountryTo: randomFromArray(countryArray),
 			CityTo: randomFromArray(cityArray),
 			DateFrom: randomInt(1, 30),
-			DateTo: randomInt(1, 30) + "." + randomInt(1,12),
+			DateToDay: randomInt(1, 30),
+			DateToMonth: randomInt(1,12),
 		};
 	}
 	
@@ -70,6 +75,22 @@ $(document).ready(function(){
 		span.addClass(spanClass);
 		span.text(spanText);
 		return span;
+	}
+	
+	function inputNumberMinMax(value, min, max){
+		if (!min){
+			min = 1;
+		}
+		if (!max){
+			max = 30;
+		}
+		
+		var input = $('<input type="number" />');
+		input.val(value < 10 ? '0' + value : value);
+		input.attr('min', min);
+		input.attr('max', max);
+		input.change(setTwoNumberDecimal);
+		return input;
 	}
 	
 	function selectAndOption(array, value){
@@ -104,5 +125,12 @@ $(document).ready(function(){
 	function randomFromArray(array){
 		var index = randomInt(0, array.length - 1);
 		return array[index];
+	}
+
+	function setTwoNumberDecimal(event) {
+		if (this.value < 10){
+			this.value = '0' + this.value;
+		}
+		
 	}
 });
